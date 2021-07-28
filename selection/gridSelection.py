@@ -1,0 +1,169 @@
+import datetime as dt
+import os, time, sys, math
+from config.GRIDConfig import gridargs,anaargs
+from tools import Utilities
+
+baseDir = os.path.dirname(os.path.abspath(__file__))+"/../"
+Personal = "Ana/CCNuE" not in baseDir
+
+def GetPaths(baseDir):
+  l = baseDir.split("/")
+  index = l.index("cmtuser")
+  Release = "/".join(l[0:index+2])
+  RelativePath = "/".join(l[index+2:-1])
+  return Release,RelativePath
+
+def createTarball( releaseDir,outDir):
+  print("I'm inside createTarball()")
+  found = os.path.isfile(outDir)
+  if(not found):
+    cmd = "tar -czf %s -C %s %s"%(outDir, releaseDir, ".")# remove /Ana/CCNuE from baseDir bc want to tar the release.
+    print(cmd)
+    os.system(cmd)
+
+  print("I'm done creating the tarballs")
+
+def unpackTarball( mywrapper ,RelativePath):
+  # Add lines to wrapper that wil unpack tarball; add additional setup steps here if necessary  
+  mywrapper.write("cd $CONDOR_DIR_INPUT\n")
+  mywrapper.write("source /cvmfs/minerva.opensciencegrid.org/minerva/setup/setup_minerva_products.sh\n")
+  mywrapper.write("tar -xvzf {}\n".format(outdir_tarball.split("/")[-1]))
+  # Set up test release
+  #mywrapper.write("pushd Tools/ProductionScriptsLite/cmt/\n")#assuming only one test release
+  #mywrapper.write("cmt config\n")
+  #mywrapper.write(". setup.sh\n")
+  #mywrapper.write("popd\n")
+  mywrapper.write("pushd Ana/PlotUtils/cmt/\n")
+  mywrapper.write("cmt config\n")
+  #mywrapper.write("cmt make\n")
+  mywrapper.write(". setup.sh\n")
+  mywrapper.write("popd\n")
+  mywrapper.write("export LD_LIBRARY_PATH=/cvmfs/minerva.opensciencegrid.org/minerva/software_releases/v22r1p1/lcg/external/GSL/1.10/x86_64-slc7-gcc49-opt/lib:$LD_LIBRARY_PATH\n")
+  mywrapper.write("pushd {}\n".format(RelativePath))
+  mywrapper.write(". setup.sh\n")
+  #mywrapper.write("make\n")
+  
+  mywrapper.write("popd\n")
+
+
+# def copyLocalFilesToPNFS( tupleName , dest_dir):
+
+#   if not os.path.isfile('%s/makeHists.py' % dest_dir):
+#     os.system( "cp makeHists.py %s" % dest_dir )
+
+# def clearLocalFilesFromPNFS():
+
+#   os.system( "rm -rf /pnfs/minerva/%s/users/finer/temp/" % PNFS_switch)
+
+def addBashLine( wrapper , command ):
+
+  wrapper.write("echo '---------------'\n")
+  wrapper.write("echo '-------%s'\n" % command)
+  wrapper.write("%s\n" % command)
+  wrapper.write("echo '---------------'\n")
+
+
+def submitJob( tupleName,relative_path):
+
+  # Create wrapper
+  wrapper_name = "grid_wrappers/%s/%s_wrapper.sh" % ( processingID , tupleName ) 
+  
+  my_wrapper = open(wrapper_name,"w")
+  my_wrapper.write("#!/bin/sh\n")
+  unpackTarball(my_wrapper,relative_path)
+  #addBashLine(my_wrapper,'env')
+  #addBashLine(my_wrapper,'pwd')
+  #addBashLine(my_wrapper,'ls')
+
+  # Write dummy output files to get around dumb copy-back bug
+  #makeDummyFile(my_wrapper,'$CONDOR_DIR_LOGS')
+  #makeDummyFile(my_wrapper,'$CONDOR_DIR_HISTS')
+
+
+  # This is the bash line that will be executed on the grid
+  my_wrapper.write( "echo $CCNUEROOT/selection\n")
+  my_wrapper.write( "cd $CCNUEROOT/selection\n")
+  my_wrapper.write( "export USER=$(whoami)\n")
+  #my_wrapper.write( "export XRD_LOGLEVEL=\"Debug\"\n")
+
+  my_wrapper.write( "python eventSelection.py -p %s --grid --%s-only --ntuple_tag %s --count %d %d  --output $CONDOR_DIR_HISTS %s >& $CONDOR_DIR_LOGS/%s-${PROCESS}.log\n" % (playlist, dataSwitch, gridargs.ntuple_tag, start, count, argstring,tupleName) )
+  my_wrapper.write("exit $?\n")
+  #my_wrapper.write( "python eventSelection.py -p %s --grid --%s-only --ntuple_tag %s --count %d %d  --output $CONDOR_DIR_HISTS %s \n" % (playlist, dataSwitch, gridargs.ntuple_tag, start, count, argstring) )
+ 
+  #addBashLine(my_wrapper,'date')
+  my_wrapper.close()
+  
+  os.system( "chmod 777 %s" % wrapper_name )
+  
+  #cmd = "jobsub_submit --group=minerva -l '+SingularityImage=\\\"/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-wn-sl7:latest\\\"' --resource-provides=usage_model=DEDICATED,OPPORTUNISTIC --role=Analysis --memory %dMB -f %s/testRelease.tar.gz -d HISTS %s -d LOGS %s -r %s -N %d --expected-lifetime=%dh --cmtconfig=%s -i /cvmfs/minerva.opensciencegrid.org/minerva/software_releases/%s/ file://%s/%s" % ( memory , outdir_tarball , outdir_hists , outdir_logs , os.environ["MINERVA_RELEASE"], njobs, 12, os.environ["CMTCONFIG"],os.environ["MINERVA_RELEASE"], os.environ["PWD"] , wrapper_name )
+  cmd = "jobsub_submit --group=minerva --resource-provides=usage_model=DEDICATED,OPPORTUNISTIC --role=Analysis --memory %dMB -f %s -d HISTS %s -d LOGS %s -r %s -N %d --expected-lifetime=%dh --cmtconfig=%s -i /cvmfs/minerva.opensciencegrid.org/minerva/software_releases/%s/ file://%s/%s" % ( memory , outdir_tarball , outdir_hists , outdir_logs , os.environ["MINERVA_RELEASE"], njobs, 12, os.environ["CMTCONFIG"],os.environ["MINERVA_RELEASE"], os.environ["PWD"] , wrapper_name )
+  # Copy local files to PNFS, they aren't there already
+  #copyLocalFilesToPNFS(tupleName,outdir_logs) 
+ 
+  print(cmd)
+  os.system(cmd)
+ 
+  sleepTime = 2 
+  print("Sleeping for %i seconds\n" % sleepTime)
+  time.sleep(sleepTime)
+
+  ## # Clear files from PNFS
+  ## clearLocalFilesFromPNFS()
+
+if __name__ == '__main__':
+  #if gridargs.cal_POT:
+  #  for playlist in gridargs.playlists:
+  #    for dataSwitch in ["mc","data"]:
+  #      if (gridargs.data_only and dataSwitch == "mc" ) or (gridargs.mc_only and dataSwitch == "data"):
+  #        continue
+#
+#        POT_used,POT_total = Utilities.getPOT(playlist,dataSwitch,gridargs.ntuple_tag,True)
+#        print playlist,POT_used,POT_total
+#    sys.exit(0)
+
+  release_path,relative_path=GetPaths(baseDir)
+  PNFS_switch = gridargs.PNFS_switch
+  # Automatically generate unique output directory
+  processingID = '%s_%s-%s' % ("CCNUE_selection", dt.date.today() , dt.datetime.today().strftime("%H%M%S") )
+  
+  outdir_hists = "/pnfs/minerva/%s/users/%s/%s_hists" % (PNFS_switch,os.environ["USER"],processingID)
+  os.system( "mkdir %s" % outdir_hists )
+  outdir_logs = "/pnfs/minerva/%s/users/%s/%s_logs" % (PNFS_switch,os.environ["USER"],processingID)
+  os.system( "mkdir %s" % outdir_logs )
+  os.system( "mkdir grid_wrappers/%s" % processingID )
+  outdir_tarball=gridargs.tarball if gridargs.tarball else "/pnfs/minerva/resilient/tarballs/hsu-%s.tar.gz" % (processingID)
+  createTarball(release_path,outdir_tarball)
+
+  for playlist in gridargs.playlists:
+    for dataSwitch in ["mc","data"]:
+      if (gridargs.data_only and dataSwitch == "mc" ) or (gridargs.mc_only and dataSwitch == "data"):
+        continue
+
+      if gridargs.memory is None:
+        memory = 1000 if dataSwitch == "data" else 3000
+      else:
+        memory = gridargs.memory
+    
+      if gridargs.count is None:
+        count = 1000 if dataSwitch == "data" else 1
+      else:
+        count = gridargs.count
+
+      argstring=" ".join(anaargs)
+
+      start = gridargs.start
+      if gridargs.njobs is None:
+        end = Utilities.countLines(playlist,dataSwitch,gridargs.ntuple_tag) if gridargs.end is None else gridargs.end
+        njobs = math.ceil(1.0*(end-start)/count)
+      else:
+        njobs = gridargs.njobs
+        end = njobs*count + start
+
+      if njobs > 1000:
+        print("You should not submit more than a 1k jobs for 1 playlist.")
+        print("Please merge ntuples or run more subruns per job.")
+        print("there are %d ntuple files and you process %d of them per job" % ( end-start ,count))
+        sys.exit(1)
+
+      cmdString = "CCNuE-%s-%s" % (playlist,dataSwitch)
+      submitJob(cmdString,relative_path)
