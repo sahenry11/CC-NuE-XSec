@@ -6,6 +6,7 @@ from array import array
 from collections import Iterable #for checking whether iterable.
 from functools import partial
 
+
 from config.AnalysisConfig import AnalysisConfig
 
 MNVPLOTTER = PlotUtils.MnvPlotter()
@@ -84,6 +85,40 @@ def PrepareSignalDecompose(data_hists,mc_hists,cates,sys_on_mc = True, sys_on_da
         raise KeyError("Non sense making signal decomposition plots without mc")
     return plotfunction,hists
 
+def PrepareSignalDecomposeRatio(data_hists,mc_hists,cates,sys_on_mc = True, sys_on_data = False,only_cated = False):
+    def ReSumHists(h_list):
+        if len(h_list) == 0:
+            return None
+        hnew = h_list[0].Clone()
+        for i in range(1,len(h_list)):
+            hnew.Add(h_list[i])
+        return hnew
+
+    if (data_hists.valid and mc_hists.valid):
+        hists = [data_hists.GetHist().GetCVHistoWithError() if sys_on_data else data_hists.GetHist().GetCVHistoWithStatError()]
+        cate_hists,colors,titles  = mc_hists.GetCateList(cates)
+        if only_cated :
+            totalHist = ReSumHists(cate_hists)
+        else:
+            totalHist = mc_hists.GetHist()
+        hists.append(totalHist.GetCVHistoWithError() if sys_on_mc else totalHist.GetCVHistoWithStatError())
+        hists.extend(cate_hists)
+        plotfunction = lambda mnvplotter,data_hist, mc_hist, *mc_ints : partial(MakeSignalDecomposePlot,color=colors,title=titles)(data_hist,mc_hist,mc_ints)
+    elif mc_hists.valid:
+        cate_hists,colors,titles  = mc_hists.GetCateList(cates)
+        if only_cated :
+            totalHist = ReSumHists(cate_hists)
+        else:
+            totalHist = mc_hists.GetHist()
+        hists = [totalHist.GetCVHistoWithError() if sys_on_mc else totalHist.GetCVHistoWithStatError()]
+        hists.extend(cate_hists)
+        plotfunction = lambda mnvplotter, mc_hist, *mc_ints : partial(MakeSignalDecomposePlot,color=colors,title=titles)(None,mc_hist,mc_ints)
+    else:
+        raise KeyError("Non sense making signal decomposition plots without mc")
+    for i in hists:
+        i.Divide(i,mc_hists.GetHist())
+    return plotfunction,hists
+
 def PrepareComp(data_hists,mc_hists,sys_on_mc = True, sys_on_data = False,as_frac=False):
     if not (data_hists.valid or mc_hists.valid):
         raise KeyError("both data and mc is None")
@@ -108,7 +143,7 @@ def PrepareRatio(data_hists,mc_hists):
              mc_hists.GetHist()]
     return plotfunction,hists
 
-def PrepareErr(data_hists,mc_hists,sys_on_mc=True,sys_on_data=False):
+def PrepareErr(data_hists,mc_hists,sys_on_mc=True,sys_on_data=False,grouping=None):
     plotfunction = lambda mnvplotter,data_hist: mnvplotter.DrawErrorSummary(data_hist)
     if data_hists.valid and sys_on_data:
         hists =[data_hists.GetHist()]
@@ -116,7 +151,8 @@ def PrepareErr(data_hists,mc_hists,sys_on_mc=True,sys_on_data=False):
         hists =[mc_hists.GetHist()]
     else:
         raise KeyError("Can't make error plot for systematics config mismatch")
-    AdaptivePlotterErrorGroup(hists[0],7)
+    updatePlotterErrorGroup(grouping)
+    #AdaptivePlotterErrorGroup(hists[0],7)
     return plotfunction,hists
 
 def PrepareErrorBand(data_hists,mc_hists, name, sys_on_mc=True,sys_on_data=False):
@@ -186,6 +222,7 @@ def TopNErrorBand(hist,topN):
     heap = []
     for errorband_name in hist.GetVertErrorBandNames():
         sum_error = hist.GetVertErrorBand(errorband_name).GetErrorBand(False,False).Integral()
+        print(errorband_name,hist.GetVertErrorBand(errorband_name).GetErrorBand(False,False).Integral())
         if len(heap)<topN:
             heapq.heappush(heap, (sum_error,errorband_name))
         elif sum_error>heap[0][0]:

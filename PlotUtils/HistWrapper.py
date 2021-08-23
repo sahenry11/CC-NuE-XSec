@@ -111,7 +111,7 @@ class HistWrapper(object):
   #  return self.eventToUnivMap[systematicUniverseClass][i]   
 
   def AddUniverses(self,systEvents):
-    for systematicUniverseClass,univVec in list(systEvents.items()):
+    for systematicUniverseClass,univVec in systEvents.items():
       # CV is special
       if systematicUniverseClass.upper() == 'CV':
         self.eventToUnivMap[univVec[0]] = self.hist

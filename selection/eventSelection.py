@@ -9,7 +9,7 @@
 import os
 import ROOT
 import string
-#import cProfile
+import cProfile
 import signal
 import sys
 from itertools import chain
@@ -166,7 +166,7 @@ if __name__ == "__main__":
         output_file = ROOT.TFile.Open(outputSelectionHistogram,"RECREATE")
         CopyMetaTreeToOutPutFile(output_file)
         if Reco :
-            #cProfile.run('plotRecoKin(st=="mc", Utilities.fileChain(AnalysisConfig.playlist,st,AnalysisConfig.ntuple_tag,"NuECCQE",AnalysisConfig.count[0],AnalysisConfig.count[1]), outputSelectionHistogram)')
+            #cProfile.run('plotRecoKin(st=="mc", Utilities.fileChain(AnalysisConfig.playlist,st,AnalysisConfig.ntuple_tag,None,AnalysisConfig.count[0],AnalysisConfig.count[1]), output_file)')
             plotRecoKin(st=="mc", Utilities.fileChain(AnalysisConfig.playlist,st,AnalysisConfig.ntuple_tag,None,AnalysisConfig.count[0],AnalysisConfig.count[1]), output_file)
         if st=="mc" and Truth:
             plotTruthKin(Utilities.fileChain(AnalysisConfig.playlist,"mc",AnalysisConfig.ntuple_tag,"Truth",AnalysisConfig.count[0],AnalysisConfig.count[1]),output_file)

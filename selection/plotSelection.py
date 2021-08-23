@@ -16,7 +16,6 @@ from tools.PlotLibrary import HistHolder
 ROOT.TH1.AddDirectory(False)
 SELECTED_SIDEBANDS = AnalysisConfig.sidebands
 
-
 def MakePlot(data_hists,mc_hists,config):
     #scale
     if "scale" in config:
@@ -58,7 +57,7 @@ if __name__ == "__main__":
     playlist=AnalysisConfig.playlist
     type_path_map = { t:AnalysisConfig.SelectionHistoPath(playlist,t =="data",False) for t in AnalysisConfig.data_types}
     data_file,mc_file,pot_scale,data_pot,mc_pot = Utilities.getFilesAndPOTScale(playlist,type_path_map,AnalysisConfig.ntuple_tag,True)
-    standPOT = data_pot
+    standPOT = data_pot if data_pot is not None else mc_pot
 
     sideband_map = {}
     for config in PLOTS_TO_MAKE:

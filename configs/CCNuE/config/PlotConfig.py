@@ -29,6 +29,9 @@ M_p_sqr = M_p**2
 NQ3 = 8
 NQ0 = 19
 LOW_RECOIL_BIN_Q3 = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.6, 2]
+LOW_RECOIL_BIN_Q3_Truth = [0.0, 0.2, 0.3, 0.4, 0.6, 0.9, 1.2, 1.6, 2]
+LOW_RECOIL_BIN_Q0_Truth = [0.0, 0.04, 0.08,0.12,0.16,0.24,
+                           0.32,0.4,0.6,0.8,1.0,1.2,1.6,2]
 BACKGROUND_FIT_Q3_BIN = [0.0, 0.6, 0.8, 1.0, 1.2, 1.6, 2]
 LOW_RECOIL_BIN_Q0 = [0.0, 0.04, 0.08,
 		             0.12, 0.16, 0.2,
@@ -174,6 +177,7 @@ PROTON_KE_BINNING = [0.05 * i for i in range(21)]
 VERTEX_DIFF_BINNING = [20*i for i in range(-3,31)]
 VERTEX_Z_BINNING = [5000+ 200*i for i in range(21)]
 PT_BINNING = [0.2 * i for i in range(9)]
+PT_BINNING_Truth = [0.2 * i for i in range(9)]
 PI0_ENERGY_BINNING = [0.5 * i for i in range(21)]
 #EXTRA_ENERGY_BINNING = [0.05*i for i in range(41)]
 EXTRA_ENERGY_BINNING = [0.05*i for i in range(15)]
@@ -271,7 +275,7 @@ HISTS_TO_MAKE = [
     #  {"variables":["Vertex Z","Visible Energy"],
     #  "tags": {"sideband","truth_class"}
      # },
-    "Visible Energy Migration",
+    #"Visible Energy Migration",
     # "Q0 Migration",
     # {"variables":["Q0","True Visible Energy"],
     #  "tags": {"mc_only","signal_only"}

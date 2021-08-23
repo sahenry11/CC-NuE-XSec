@@ -2,590 +2,603 @@
     "me1M_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.7183497071591408e+20, 
-                "used_POT": 1.7100155520314825e+20, 
+                "total_POT": 1.7183497071591408e+20,
+                "used_POT": 1.7100155520314825e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1M_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1M_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 1.6112077650422966e+20, 
+                "used_POT": 1.6112077650422966e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1M_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 4.1163179753483574e+20, 
-                "used_POT": 4.1163179753483574e+20, 
+                "total_POT": 4.1163179753483574e+20,
+                "used_POT": 4.1163179753483574e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1M_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1M_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 4.044114584919733e+20, 
+                "used_POT": 4.044114584919733e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1M_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1G_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.4672917586821741e+20, 
-                "used_POT": 1.4566717231400624e+20, 
+                "total_POT": 1.4672917586821741e+20,
+                "used_POT": 1.4566717231400624e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1G_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1G_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.465901185576134e+20, 
-                "used_POT": 1.4551402475340312e+20, 
+                "total_POT": 1.465901185576134e+20,
+                "used_POT": 1.4551402475340312e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1G_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 1.3032300190192278e+20, 
-                "used_POT": 1.3032300190192278e+20, 
+                "total_POT": 1.3032300190192278e+20,
+                "used_POT": 1.3032300190192278e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1G_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1G_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 4.035980470053553e+20, 
-                "used_POT": 4.035980470053553e+20, 
+                "total_POT": 4.035980470053553e+20,
+                "used_POT": 4.035980470053553e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1G_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1D_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.452635542230693e+20, 
-                "used_POT": 1.449969050897912e+20, 
+                "total_POT": 1.452635542230693e+20,
+                "used_POT": 1.449969050897912e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1D_nx_Sarah.txt"
-            }, 
+            },
             "LLR": {
-                "total_POT": 1.3873983694770122e+20, 
-                "used_POT": 1.384746851392077e+20, 
+                "total_POT": 1.3873983694770122e+20,
+                "used_POT": 1.384746851392077e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1D_nx_LLR.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1D_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.4505964683789525e+20, 
-                "used_POT": 1.4479302542237557e+20, 
+                "total_POT": 1.4505964683789525e+20,
+                "used_POT": 1.4479302542237557e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1D_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 3.0059084949661896e+20, 
-                "used_POT": 3.0059084949661896e+20, 
+                "total_POT": 3.0059084949661896e+20,
+                "used_POT": 3.0059084949661896e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1D_nx_Sarah.txt"
-            }, 
+            },
             "LLR": {
-                "total_POT": 5.6241320812107314e+20, 
-                "used_POT": 5.6241320812107314e+20, 
+                "total_POT": 5.6241320812107314e+20,
+                "used_POT": 5.6241320812107314e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1D_nx_LLR.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1D_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 5.500418589291063e+20, 
-                "used_POT": 5.500418589291063e+20, 
+                "total_POT": 5.500418589291063e+20,
+                "used_POT": 5.500418589291063e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1D_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1P_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 3.843234675568712e+19, 
-                "used_POT": 3.838440413355886e+19, 
+                "total_POT": 3.843234675568712e+19,
+                "used_POT": 3.838440413355886e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1P_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1P_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 4.410025440364703e+19, 
+                "used_POT": 4.410025440364703e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1P_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 1.0800405354571011e+20, 
-                "used_POT": 1.0800405354571011e+20, 
+                "total_POT": 1.0800405354571011e+20,
+                "used_POT": 1.0800405354571011e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1P_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1P_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 1.0073906624794421e+20, 
+                "used_POT": 1.0073906624794421e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1P_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1B_NCDIF": {
         "mc": {
             "Sarah": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1B_NCDiff_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1B_NCDIF_Had.txt"
             }
         }
-    }, 
+    },
     "me1L_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.3652680625417611e+19, 
-                "used_POT": 1.3652469465631588e+19, 
+                "total_POT": 1.3652680625417611e+19,
+                "used_POT": 1.3652469465631588e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1L_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1L_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.323510635735893e+19, 
-                "used_POT": 1.3234934971009118e+19, 
+                "total_POT": 1.323510635735893e+19,
+                "used_POT": 1.3234934971009118e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1L_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 2.8796117351061967e+19, 
-                "used_POT": 2.8796117351061967e+19, 
+                "total_POT": 2.8796117351061967e+19,
+                "used_POT": 2.8796117351061967e+19,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1L_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1L_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 5.5206883953874805e+19, 
-                "used_POT": 5.5206883953874805e+19, 
+                "total_POT": 5.5206883953874805e+19,
+                "used_POT": 5.5206883953874805e+19,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1L_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1C_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 4.952672779548802e+19, 
-                "used_POT": 4.732040123148304e+19, 
+                "total_POT": 4.952672779548802e+19,
+                "used_POT": 4.732040123148304e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1C_nx_Sarah.txt"
-            }, 
+            },
             "LLR": {
-                "total_POT": 4.733423202017427e+19, 
-                "used_POT": 4.514472942593478e+19, 
+                "total_POT": 4.733423202017427e+19,
+                "used_POT": 4.514472942593478e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1C_nx_LLR.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1C_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 4.949033705603423e+19, 
-                "used_POT": 4.728526181546073e+19, 
+                "total_POT": 4.949033705603423e+19,
+                "used_POT": 4.728526181546073e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1C_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 1.0547857333724555e+20, 
-                "used_POT": 1.0547857333724555e+20, 
+                "total_POT": 1.0547857333724555e+20,
+                "used_POT": 1.0547857333724555e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1C_nx_Sarah.txt"
-            }, 
+            },
             "LLR": {
-                "total_POT": 1.9259890440899337e+20, 
-                "used_POT": 1.9259890440899337e+20, 
+                "total_POT": 1.9259890440899337e+20,
+                "used_POT": 1.9259890440899337e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1C_nx_LLR.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1C_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.659419314808672e+20, 
-                "used_POT": 1.659419314808672e+20, 
+                "total_POT": 1.659419314808672e+20,
+                "used_POT": 1.659419314808672e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1C_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1D_NCDIF": {
         "mc": {
             "Sarah": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1D_NCDiff_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1D_NCDIF_Had.txt"
             }
         }
-    }, 
+    },
     "me1O_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 3.0002440683176632e+19, 
-                "used_POT": 3.000247473777519e+19, 
+                "total_POT": 3.0002440683176632e+19,
+                "used_POT": 3.000247473777519e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1O_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1O_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 2.797078721485632e+19, 
+                "used_POT": 2.797078721485632e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1O_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 7.810996408262278e+19, 
-                "used_POT": 7.810996408262278e+19, 
+                "total_POT": 7.810996408262278e+19,
+                "used_POT": 7.810996408262278e+19,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1O_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1O_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 7.334936567759708e+19, 
+                "used_POT": 7.334936567759708e+19,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1O_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1F_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.726242377276144e+20, 
-                "used_POT": 1.7178969619158896e+20, 
+                "total_POT": 1.726242377276144e+20,
+                "used_POT": 1.7178969619158896e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1F_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1F_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.7231481076043786e+20, 
-                "used_POT": 1.7148250779058785e+20, 
+                "total_POT": 1.7231481076043786e+20,
+                "used_POT": 1.7148250779058785e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1F_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 3.5879222225067534e+20, 
-                "used_POT": 3.5879222225067534e+20, 
+                "total_POT": 3.5879222225067534e+20,
+                "used_POT": 3.5879222225067534e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1F_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1F_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 6.811676219316474e+20, 
-                "used_POT": 6.811676219316474e+20, 
+                "total_POT": 6.811676219316474e+20,
+                "used_POT": 6.811676219316474e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1F_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "Muon+PhotonPC": {
         "data": {
             "6GeV_40PercentMu": {
                 "playlist_location": "file_option/PC_Muon+Photon_6GeV_40P.txt"
-            }, 
+            },
             "4GeV_90PercentMu": {
                 "playlist_location": "file_option/PC_Muon+Photon_4GeV_90P.txt"
-            }, 
+            },
             "4GeV_40PercentMu": {
                 "playlist_location": "file_option/PC_Muon+Photon_4GeV_40P.txt"
-            }, 
+            },
             "4GeV_5PercentMu": {
                 "playlist_location": "file_option/PC_Muon+Photon_4GeV_5P.txt"
-            }, 
+            },
             "4GeV_70PercentMu": {
                 "playlist_location": "file_option/PC_Muon+Photon_4GeV_70P.txt"
-            }, 
+            },
             "6GeV_20PercentMu": {
                 "playlist_location": "file_option/PC_Muon+Photon_6GeV_20P.txt"
             }
         }
-    }, 
+    },
     "Electron_PC": {
         "data": {
             "fspline": {
-                "total_POT": 0.0, 
-                "used_POT": 0.0, 
+                "total_POT": 0.0,
+                "used_POT": 0.0,
                 "playlist_location": "file_option/playlist_Electron_PC_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "fspline": {
-                "total_POT": 0.0, 
-                "used_POT": 3.03658893e+20, 
+                "total_POT": 0.0,
+                "used_POT": 3.03658893e+20,
                 "playlist_location": "file_option/playlist_Electron_PC_fspline.txt"
             }
         }
-    }, 
+    },
     "me1N_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.1344065422657225e+20, 
-                "used_POT": 1.1341751428048106e+20, 
+                "total_POT": 1.1344065422657225e+20,
+                "used_POT": 1.1341751428048106e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1N_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1N_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 1.0789150523173495e+20, 
+                "used_POT": 1.0789150523173495e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1N_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 2.634868906345953e+20, 
-                "used_POT": 2.634868906345953e+20, 
+                "total_POT": 2.634868906345953e+20,
+                "used_POT": 2.634868906345953e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1N_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1N_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "used_POT": 2.4742293831801625e+20, 
+                "used_POT": 2.4742293831801625e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1N_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "Pi0_PC": {
         "data": {
             "Sarah": {
-                "total_POT": 0.0, 
-                "used_POT": 0.0, 
+                "total_POT": 0.0,
+                "used_POT": 0.0,
                 "playlist_location": "file_option/playlist_Pi0_PC_anti.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 0.0, 
-                "used_POT": 0.0, 
+                "total_POT": 0.0,
+                "used_POT": 0.0,
                 "playlist_location": "file_option/playlist_Pi0_PC_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 0.0, 
-                "used_POT": 6.545849312e+21, 
+                "total_POT": 0.0,
+                "used_POT": 6.545849312e+21,
                 "playlist_location": "file_option/playlist_Pi0_PC_anti.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 0.0, 
-                "used_POT": 6.545849312e+21, 
+                "total_POT": 0.0,
+                "used_POT": 6.545849312e+21,
                 "playlist_location": "file_option/playlist_Pi0_PC_fspline.txt"
             }
         }
-    }, 
+    },
     "me1A_NCDIF": {
         "data": {
             "birk": {
-                "total_POT": 9.620084145877257e+19, 
-                "used_POT": 9.53252829175583e+19, 
+                "total_POT": 9.620084145877257e+19,
+                "used_POT": 9.53252829175583e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1A_nx_birk.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 9.600705331624606e+19, 
-                "used_POT": 9.513150022896255e+19, 
+                "total_POT": 9.600705331624606e+19,
+                "used_POT": 9.513150022896255e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1A_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 2.8869552585543144e+21, 
-                "used_POT": 2.8869552585543144e+21, 
+                "total_POT": 2.8869552585543144e+21,
+                "used_POT": 2.8869552585543144e+21,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_NCDiff_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_NCDIF_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 2.846947839567869e+21, 
-                "used_POT": 3.648740489e+20, 
+                "total_POT": 2.846947839567869e+21,
+                "used_POT": 3.648740489e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_NCDiff_fspline.txt"
             }
         }
-    }, 
+    },
     "Photon_PC": {
         "data": {
             "fspline": {
-                "total_POT": 0.0, 
-                "used_POT": 0.0, 
+                "total_POT": 0.0,
+                "used_POT": 0.0,
                 "playlist_location": "file_option/playlist_Photon_PC_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "fspline": {
-                "total_POT": 0.0, 
-                "used_POT": 7.698638598e+20, 
+                "total_POT": 0.0,
+                "used_POT": 7.698638598e+20,
                 "playlist_location": "file_option/playlist_Photon_PC_fspline.txt"
             }
         }
-    }, 
+    },
     "me1A_Xtalk_On": {
         "mc": {
             "Sarah": {}
         }
-    }, 
+    },
     "me1A_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 9.620084145877257e+19, 
-                "used_POT": 9.53252829175583e+19, 
+                "total_POT": 9.620084145877257e+19,
+                "used_POT": 9.53252829175583e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1A_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
-                "total_POT": 9.600705331624606e+19, 
-                "used_POT": 9.513150022896255e+19, 
+                "total_POT": 9.600705331624606e+19,
+                "used_POT": 9.513150022896255e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1A_nx_Had.txt"
+            },
+            "incmuon": {
+                "playlist_location": "file_option/playlist_ccqenue_datame1A_nx_incmuon.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 4.04463129139e+20, 
-                "used_POT": 4.04463129139e+20, 
+                "total_POT": 4.04463129139e+20,
+                "used_POT": 4.04463129139e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_nx_Sarah.txt"
-            }, 
+            },
             "xtalkon": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_xtalkon.txt"
-            }, 
+            },
             "Had": {
-                "used_POT": 0.0, 
+                "used_POT": 0.0,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_nx_Had.txt"
+            },
+            "incmuon": {
+                "playlist_location": "file_option/playlist_ccqenue_mcme1A_nx_incmuon.txt"
+            },
+            "MAD": {
+                "tree": "MasterAnaDev",
+                "playlist_location": "file_option/playlist_ccqenue_mcme1A_nx_MAD.txt"
+            },
+            "xtalkup": {
+                "playlist_location": "file_option/playlist_ccqenue_mcme1A_nx_xtalkup.txt"
             }
         }
-    }, 
+    },
     "me1A_OD": {
         "mc": {
             "Sarah": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1A_OD_Sarah.txt"
             }
         }
-    }, 
+    },
     "me1E_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.0528529351726301e+20, 
-                "used_POT": 1.051974409080772e+20, 
+                "total_POT": 1.0528529351726301e+20,
+                "used_POT": 1.051974409080772e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1E_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1E_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.0471358891130441e+20, 
-                "used_POT": 1.0462578241665738e+20, 
+                "total_POT": 1.0471358891130441e+20,
+                "used_POT": 1.0462578241665738e+20,
                 "playlist_location": "file_option/playlist_ccqenue_datame1E_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 2.5690043384201337e+20, 
-                "used_POT": 2.5690043384201337e+20, 
+                "total_POT": 2.5690043384201337e+20,
+                "used_POT": 2.5690043384201337e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1E_nx_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1E_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 4.909868813013809e+20, 
-                "used_POT": 4.909868813013809e+20, 
+                "total_POT": 4.909868813013809e+20,
+                "used_POT": 4.909868813013809e+20,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1E_nx_fspline.txt"
             }
         }
-    }, 
+    },
     "me1C_NCDIF": {
         "mc": {
             "Sarah": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1C_NCDiff_Sarah.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1C_NCDIF_Had.txt"
             }
         }
-    }, 
+    },
     "me1B_nx": {
         "data": {
             "Sarah": {
-                "total_POT": 1.8767691008554815e+19, 
-                "used_POT": 1.8712426123386827e+19, 
+                "total_POT": 1.8767691008554815e+19,
+                "used_POT": 1.8712426123386827e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1B_nx_Sarah.txt"
-            }, 
+            },
             "LLR": {
-                "total_POT": 1.7991145500865761e+19, 
-                "used_POT": 1.7935912832184779e+19, 
+                "total_POT": 1.7991145500865761e+19,
+                "used_POT": 1.7935912832184779e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1B_nx_LLR.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_datame1B_nx_Had.txt"
-            }, 
+            },
             "fspline": {
-                "total_POT": 1.879426509759505e+19, 
-                "used_POT": 1.8739000223169774e+19, 
+                "total_POT": 1.879426509759505e+19,
+                "used_POT": 1.8739000223169774e+19,
                 "playlist_location": "file_option/playlist_ccqenue_datame1B_nx_fspline.txt"
             }
-        }, 
+        },
         "mc": {
             "Sarah": {
-                "total_POT": 9.959826718070248e+19, 
-                "used_POT": 9.959826718070248e+19, 
+                "total_POT": 9.959826718070248e+19,
+                "used_POT": 9.959826718070248e+19,
                 "playlist_location": "file_option/playlist_ccqenue_mcme1B_nx_Sarah.txt"
-            }, 
+            },
             "Sarah-xtalk-off": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1B_nx_xtalkoff.txt"
-            }, 
+            },
             "Had": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1B_nx_Had.txt"
-            }, 
+            },
             "Sarah-xtalk": {
                 "playlist_location": "file_option/playlist_ccqenue_mcme1B_nx_xtalk.txt"
             }
         }
-    }, 
+    },
     "MAD": {
         "data": {
             "sarah": {
-                "tree": "NuECCQE", 
+                "tree": "NuECCQE",
                 "playlist_location": "file_option/CCNuE-Sarah-data.txt"
-            }, 
+            },
             "mad_proton": {
-                "tree": "MasterAnaDev", 
+                "tree": "MasterAnaDev",
                 "playlist_location": "file_option/MasterAnaDev-data-test-proton.txt"
-            }, 
+            },
             "mad": {
-                "tree": "MasterAnaDev", 
+                "tree": "MasterAnaDev",
                 "playlist_location": "file_option/MasterAnaDev-test-data.root"
-            }, 
+            },
             "ccnue": {
-                "tree": "NuECCQE", 
+                "tree": "NuECCQE",
                 "playlist_location": "file_option/CCNuE-validate-data.root"
             }
-        }, 
+        },
         "mc": {
             "sarah": {
-                "tree": "NuECCQE", 
+                "tree": "NuECCQE",
                 "playlist_location": "file_option/CCNuE-Sarah-mc.txt"
-            }, 
+            },
             "mad_proton": {
-                "tree": "MasterAnaDev", 
+                "tree": "MasterAnaDev",
                 "playlist_location": "file_option/MasterAnaDev-test-proton.txt"
-            }, 
+            },
             "mad": {
-                "tree": "MasterAnaDev", 
+                "tree": "MasterAnaDev",
                 "playlist_location": "file_option/MasterAnaDev-test.root"
-            }, 
+            },
             "ccnue": {
-                "tree": "NuECCQE", 
+                "tree": "NuECCQE",
                 "playlist_location": "file_option/CCNuE-validate.root"
             }
         }
-    }, 
+    },
     "me1A_ext_2p2h": {
         "mc": {
             "Sarah": {

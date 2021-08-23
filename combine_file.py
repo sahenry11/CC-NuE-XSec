@@ -1,8 +1,8 @@
-
 import os
 import sys
 import re
-import multiprocessing as mp
+import multiprocessing as mpi
+import subprocess
 import ROOT
 import PlotUtils
 from itertools import chain
@@ -40,9 +40,14 @@ def AddOneFile(input_string,output_string, pot_scale):
     print("done a file")
 
 def MaddWrapper(output_playlist,input_files,is_data):
-    cmd = "madd.exe {} {} >/dev/null".format(AnalysisConfig.SelectionHistoPath(output_playlist,is_data)," ".join(input_files))
-    print (cmd)
-    os.system(cmd)
+    args = ["madd", AnalysisConfig.SelectionHistoPath(output_playlist,is_data)]
+    args.extend(input_files)
+    #cmd = "madd {} {}".format(AnalysisConfig.SelectionHistoPath(output_playlist,is_data)," ".join(input_files))
+    #print (cmd)
+    #os.system(cmd)
+    print(args)
+    subprocess.run(args,stdout=subprocess.DEVNULL)
+    print ("done")
 
 def MergeHistograms():
     for sample_type in dict_of_files:

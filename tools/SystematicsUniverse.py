@@ -106,6 +106,7 @@ class CVUniverse(ROOT.PythonMinervaUniverse, object):
         if self.HasNoBackExitingTracks:
             self.LeptonTheta = self.ElectronTheta
             self.LeptonEnergy = self.ElectronEnergy
+            self.LeptonP3D = self.ElectronP3D
             self.M_lep_sqr =  M_e_sqr
             self.GetCorrection = self.GetLeakageCorrection
         else:
@@ -173,7 +174,7 @@ class CVUniverse(ROOT.PythonMinervaUniverse, object):
 
     @Utilities.decorator_ReLU
     def ElectronEnergy(self):
-        return self.ElectronEnergyRaw() + self.GetLeakageCorrection() + self.GetEMEnergyShift()
+        return self.ElectronEnergyRaw() + self.GetCorrection() + self.GetEMEnergyShift()
 
     def ElectronP3D(self):
         allp = self.GetVecOfVecDouble("prong_part_E")
@@ -377,10 +378,31 @@ class LowQ2PionUniverse(ROOT.PlotUtils.LowQ2PionUniverse(ROOT.PythonMinervaUnive
         cvshifts.extend([LowQ2PionUniverse(chain,i,j) for j in SystematicsConfig.LowQ2PiWeightSysChannel for i in ([-1,1] if j is not None else [0])])
         return cvshifts
 
+class MuonUniverseMinerva(ROOT.PlotUtils.MuonUniverseMinerva(ROOT.PythonMinervaUniverse),CVUniverse, object):
+    def __init__(self,chain,nsigma):
+        super(MuonUniverseMinerva,self).__init__(chain,nsigma)
+        super(ROOT.PlotUtils.MuonUniverseMinerva(ROOT.PythonMinervaUniverse),self).InitWithoutSuper(chain,nsigma)
+
+
+    @staticmethod
+    def GetSystematicsUniverses(chain):
+        return [MuonUniverseMinerva(chain,i) for i in OneSigmaShift]
+
+
+class MuonUniverseMinos(ROOT.PlotUtils.MuonUniverseMinos(ROOT.PythonMinervaUniverse),CVUniverse, object):
+    def __init__(self,chain,nsigma):
+        super(MuonUniverseMinos,self).__init__(chain,nsigma)
+        super(ROOT.PlotUtils.MuonUniverseMinos(ROOT.PythonMinervaUniverse),self).InitWithoutSuper(chain,nsigma)
+
+
+    @staticmethod
+    def GetSystematicsUniverses(chain):
+        return [MuonUniverseMinos(chain,i) for i in OneSigmaShift]
+
 ###########################################################################
 class ElectronEnergyShiftUniverse(CVUniverse):
     def __init__(self,chain, nsigma,region):
-        super(ElectronEnergyShiftUniverse,self).__init__(chain,   nsigma)
+        super(ElectronEnergyShiftUniverse,self).__init__(chain, nsigma)
         self.region = region
 
     def GetEMEnergyShift(self):
@@ -428,6 +450,8 @@ class ElectronAngleShiftUniverse(CVUniverse):
     @staticmethod
     def GetSystematicsUniverses(chain ):
         return [ElectronAngleShiftUniverse(chain,  1) for i in range(SystematicsConfig.NUM_UNIVERSE)]
+
+    
 
 ###########################################################################
 class BirksShiftUniverse(CVUniverse):
@@ -588,7 +612,7 @@ def GetAllSystematicsUniverses(chain,is_data,is_pc =False,exclude=None,playlist=
             CVUniverse.SetNuEConstraint(False)
 
         #Set nu_type
-        CVUniverse.SetAnalysisNuPDG(12)
+        CVUniverse.SetAnalysisNuPDG(SystematicsConfig.AnaNuPDG)
 
         #Set NonResPi weight
         CVUniverse.SetNonResPiReweight(SystematicsConfig.NonResPi)
@@ -602,6 +626,23 @@ def GetAllSystematicsUniverses(chain,is_data,is_pc =False,exclude=None,playlist=
         if exclude is None or "all" not in exclude:
             # Vertical shift first to skip some cut calculation
 
+            # #Electron momentum universe
+            if abs(SystematicsConfig.AnaNuPDG)==12:
+                universes.extend(ElectronEnergyShiftUniverse.GetSystematicsUniverses(chain ))
+            elif abs(SystematicsConfig.AnaNuPDG)==14:
+                universes.extend(MuonUniverseMinerva.GetSystematicsUniverses(chain ))
+                universes.extend(MuonUniverseMinos.GetSystematicsUniverses(chain ))
+            else:
+                raise ValueError ("AnaNuPDG should be \pm 12 or 14, but you set {}".format(SystematicsConfig.AnaNuPDG))
+
+            # #Electron angle universe
+            # universes.extend(ElectronAngleShiftUniverse.GetSystematicsUniverses(chain ))
+            # #beam angle shift universe
+            universes.extend(BeamAngleShiftUniverse.GetSystematicsUniverses(chain ))
+
+            #particle response shift universe
+            universes.extend(ResponseUniverse.GetSystematicsUniverses(chain ))
+
             #Flux universe
             universes.extend(FluxUniverse.GetSystematicsUniverses(chain ))
 
@@ -610,41 +651,28 @@ def GetAllSystematicsUniverses(chain,is_data,is_pc =False,exclude=None,playlist=
             universes.extend(GenieRvx1piUniverse.GetSystematicsUniverses(chain ))
             universes.extend(GenieFaCCQEUniverse.GetSystematicsUniverses(chain ))
 
-            #2p2h universes
+            # #2p2h universes
             universes.extend(Universe2p2h.GetSystematicsUniverses(chain ))
 
-            #RPA universe:
+            # #RPA universe:
             universes.extend(RPAUniverse.GetSystematicsUniverses(chain ))
 
-            #Non resonant pion universe
-            #universes.extend(NonResonantPionUniverse.GetSystematicsUniverses(chain ))
+            # #Non resonant pion universe
 
-            #Electron momentum universe
-            universes.extend(ElectronEnergyShiftUniverse.GetSystematicsUniverses(chain ))
-
-            #Electron angle universe
-            universes.extend(ElectronAngleShiftUniverse.GetSystematicsUniverses(chain ))
-
-            # #LowQ2PionUniverse
+            # # #LowQ2PionUniverse
             universes.extend(LowQ2PionUniverse.GetSystematicsUniverses(chain ))
 
-            #birk shift universe
-            #universes.extend(BirksShiftUniverse.GetSystematicsUniverses(chain ))
-
-            #beam angle shift universe
-            universes.extend(BeamAngleShiftUniverse.GetSystematicsUniverses(chain ))
-
-            #particle response shift universe
-            universes.extend(ResponseUniverse.GetSystematicsUniverses(chain ))
+            # #birk shift universe
+            # #universes.extend(BirksShiftUniverse.GetSystematicsUniverses(chain ))
 
             #MKModelUniverse
-            universes.extend(MKModelUniverse.GetSystematicsUniverses(chain ))
+            #universes.extend(MKModelUniverse.GetSystematicsUniverses(chain ))
 
             # #FSIWeighUniverse
-            universes.extend(FSIWeightUniverse.GetSystematicsUniverses(chain ))
+            #universes.extend(FSIWeightUniverse.GetSystematicsUniverses(chain ))
 
             # #SuSAValenciaUniverse
-            universes.extend(SusaValenciaUniverse.GetSystematicsUniverses(chain ))
+            #universes.extend(SusaValenciaUniverse.GetSystematicsUniverses(chain ))
 
             #hadron reweight shifting universe
             universes.extend(GeantHadronUniverse.GetSystematicsUniverses(chain ))

@@ -70,7 +70,7 @@ def MakePlot(data_hists,mc_hists,config):
         print("plot {} made.".format(data_hists.plot_name))
     except KeyError as e:
         print("plot {} not made.".format(data_hists.plot_name))
-        print(e)
+        raise e
         return False
     return True
 

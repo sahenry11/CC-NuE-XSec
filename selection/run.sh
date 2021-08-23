@@ -1,4 +1,4 @@
-stag="col7"
+stag="col8"
 ntag="Had"
 tarball="/pnfs/minerva/resilient/tarballs/hsu-gridselection-macro.tar.gz"
 if [[ -f $tarball ]]; then
