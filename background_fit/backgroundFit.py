@@ -176,7 +176,7 @@ def MakeComparableMnvHXD(hist, scale_hist, y_axis=False):
     #print hist.GetName()
     for cate in scale_hist:
         new_scale[cate] = hist.Clone()
-    print("y_axis?{}".format(y_axis))
+    #print("y_axis?{}".format(y_axis))
 
     xbins = hist.GetNbinsX()+2 #including under/overflows.
     #ybins = hist.GetNbinsY()+2
@@ -342,10 +342,10 @@ def GetScaledDataMC(hist,datafile,mcfile,region):
     #print scaled_hist_name.upper(),data_hist.plot_name.upper()
     if fit_on_axis:
         fit_on_yaxis = ("_"+scaled_hist_name).upper() in data_hist.plot_name.upper()
-        print(("fit {} on {} axis".format(data_hist.plot_name, "y" if fit_on_yaxis else "x")))
+        #print(("fit {} on {} axis".format(data_hist.plot_name, "y" if fit_on_yaxis else "x")))
         TuneMC(mc_hist, scale_hists, not fit_on_yaxis , fit_on_yaxis )
     else:
-        print(("fit {} on weighted ave".format(data_hist.plot_name)))
+        #print(("fit {} on weighted ave".format(data_hist.plot_name)))
         variable_hist = HistHolder(BackgroundFitConfig.HIST_TO_FIT,mcfile,region,True,pot_scale)
         scale_dict = Get1DScaleFactor(variable_hist,scale_hists)
         TuneMC(mc_hist, scale_dict, False , False )
@@ -422,9 +422,9 @@ if __name__ == "__main__":
     RunMinimizer(data_histholders,mc_histholders,scale_hists)
 
     for hist in scale_hists.values():
+       
         hist.Write()
-
-
+ 
     region = "Signal"
 
     for hist in HISTOGRAMS_TO_UNFOLD:
