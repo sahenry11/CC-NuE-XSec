@@ -844,7 +844,8 @@ PLOT_SETTINGS= {
         "name" : "PDG",
         "title": "PDG ; PDG Code; NEvents",
         "binning" : [PlotConfig.PARTICLE_PDG_BINNING],
-        "value_getter" : [lambda event: TruthTools.ParticlePDG(event, TruthTools.MostEnergeticParticle(event, 111))],
+        "value_getter" : [lambda event: event.mc_incoming],
+        #"value_getter" : [lambda event: TruthTools.ParticlePDG(event, TruthTools.MostEnergeticParticle(event, 111))],
         "tags": reco_tags
     },
 
@@ -1079,7 +1080,27 @@ PLOT_SETTINGS= {
                           lambda event: event.kin_cal.reco_q3],
         "tags": reco_tags
     },
+    "Visible Energy vs Q3":
+    {
+        "name" : "Eavail_Q3",
+        "title": "Available Energy v.s. q3; Available Energy (GeV); q3 (GeV); d^{2}NEvents/dE_{avail}dq3",
 
+        "binning" : [PlotConfig.LOW_RECOIL_BIN_Q0,
+                     PlotConfig.LOW_RECOIL_BIN_Q3],
+        "value_getter" : [lambda event: event.kin_cal.reco_visE,
+                          lambda event: event.kin_cal.reco_q3],
+        "tags": reco_tags
+    },
+    "True Visible Energy vs Visible Difference":
+    {
+        "name" : "Eavail_Eavail_Difference",
+
+        "title" : "Available Energy Differece vs Reco E_{avail} GeV; True Eavail - Reco E_{avail}; Reco E_{avail} (GeV)",
+        "binning" : [PlotConfig.DIFFERENCE_BINNING,
+                    PlotConfig.LOW_RECOIL_BIN_Q0],
+        "value_getter" : [lambda event: TruthTools.DifferenceEavail(event),lambda event: event.kin_cal.reco_visE],
+        "tags":reco_tags,
+    },
     "q0 vs q3":
     {
         "name" : "q0_q3",
@@ -1664,7 +1685,7 @@ class HistHolder:
         self.valid = False
         self.bin_width_scaled = False
         self.POT_scaled =False
-        if f is not None:
+        if f is not None: 
             self.valid = self.ReadHistograms(f)
 
     def ReadHistograms(self,f):
@@ -1676,8 +1697,7 @@ class HistHolder:
         if self.is_mc:
             for cate in list(SignalDef.TRUTH_CATEGORIES.keys())+["Other"]:
                 cate_namestring = VariantPlotsNamingScheme(*(variant_arg+[cate]))
-                self.hists[cate]=Utilities.GetHistogram(f, cate_namestring)
-
+                self.hists[cate]=Utilities.GetHistogram(f, cate_namestring) 
         return self.hists["Total"] is not None
 
 
@@ -1740,9 +1760,9 @@ class HistHolder:
                 _colors.append(config["color"])
         return _mc_ints,_colors,_titles
 
-    def GetHist(self):
-        if not self.valid:
-            return None
+    def GetHist(self): 
+        if not self.valid:  
+            return None 
         return self.hists["Total"]
 
     def ResumTotal(self):
@@ -1773,3 +1793,4 @@ class HistHolder:
                 self.hists[i].Add(hist_holder.hists[i])
             else:
                 print(i,self.hists[i],hist_holder.hists[i])
+

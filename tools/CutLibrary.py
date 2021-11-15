@@ -85,6 +85,15 @@ CUT_CONFIGS = {
         "value_getter": lambda event,nprong: event.UpstreamInlineEnergy,
         "cut_fn":lambda val : val>10,
     },
+    "PsiEe": {
+        "value_getter": lambda event, nprong: (event.prong_TotalVisE[nprong]/1e3, event.Psi*event.kin_cal.reco_E_lep) ,
+        "cut_fn": lambda vals: vals[1] < CutConfig.PSIEE_FLAT_CUT,
+    },
+
+    "InversePsiEe": {
+        "value_getter": lambda event, nprong: (event.prong_TotalVisE[nprong]/1e3, event.Psi*event.kin_cal.reco_E_lep),
+        "cut_fn": lambda vals: vals[1] > CutConfig.PSIEE_FLAT_CUT,
+    },
     "Vertex_Z": {
         "value_getter": lambda event, nprong: event.vtx[2],
         "cut_fn": lambda val: CutConfig.FIDUCIAL_Z_RANGE[0] <= val <= CutConfig.FIDUCIAL_Z_RANGE[1],

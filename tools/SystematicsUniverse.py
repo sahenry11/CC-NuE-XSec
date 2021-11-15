@@ -20,6 +20,8 @@ from tools import Utilities
 from collections import OrderedDict
 from tools import pcweight
 from .pcweight import GetModelWeight,MyWeighter
+from .AvailableECorrection import GetVisECorrection
+
 
 OneSigmaShift = [-1.0,1.0]
 M_e = 0.511 # MeV
@@ -153,7 +155,6 @@ class CVUniverse(ROOT.PythonMinervaUniverse, object):
         return w
 
 
-
     #################### functions to be overide in systematics shift universes #################
 
     def ElectronEnergyRaw(self):
@@ -205,10 +206,11 @@ class CVUniverse(ROOT.PythonMinervaUniverse, object):
 
     # =============== collcetion of all recoil energy stuff.========
     def GetEAvail(self):
+        correction = GetVisECorrection(self)*1e3 #Eavail correction 
         if self.GetAnaToolName() == "MasterAnaDev":
-            return self.blob_recoil_E_tracker+self.blob_recoil_E_ecal
+            return self.blob_recoil_E_tracker+self.blob_recoil_E_ecal+correction
         else:
-            return self.recoile_passive_tracker+self.recoile_passive_ecal
+            return self.recoile_passive_tracker+self.recoile_passive_ecal+correction
 
     def GetNuEFuzz(self):
         #return 0
@@ -228,10 +230,12 @@ class CVUniverse(ROOT.PythonMinervaUniverse, object):
         return self.GetEAvail()* SystematicsConfig.AVAILABLE_E_CORRECTION -self.GetCorrection()
 
     @Utilities.decorator_ReLU
-    def RecoilEnergy(self):
+    def RecoilEnergy(self): 
         if self.GetAnaToolName() == "MasterAnaDev":
+            
             return sum(self.__getattr__("blob_recoil_E_{}".format(i)) for i in ["tracker","ecal","hcal","od","nucl"])
         else:
+           
             return sum(self.__getattr__("recoile_passive_{}".format(i)) for i in ["tracker","ecal","hcal","odclus","nucl"])
 
     def GetFuzzCorrection(self):
@@ -691,9 +695,9 @@ def GetAllSystematicsUniverses(chain,is_data,is_pc =False,exclude=None,playlist=
             else:
                 raise ValueError ("AnaNuPDG should be \pm 12 or 14, but you set {}".format(SystematicsConfig.AnaNuPDG))
 
-            # #Electron angle universe
-            # universes.extend(ElectronAngleShiftUniverse.GetSystematicsUniverses(chain ))
-            # #beam angle shift universe
+            #Electron angle universe
+            universes.extend(ElectronAngleShiftUniverse.GetSystematicsUniverses(chain ))
+            #beam angle shift universe
             universes.extend(BeamAngleShiftUniverse.GetSystematicsUniverses(chain ))
 
             #particle response shift universe
@@ -707,34 +711,34 @@ def GetAllSystematicsUniverses(chain,is_data,is_pc =False,exclude=None,playlist=
             universes.extend(GenieRvx1piUniverse.GetSystematicsUniverses(chain ))
             universes.extend(GenieFaCCQEUniverse.GetSystematicsUniverses(chain ))
 
-            # #2p2h universes
+            #2p2h universes
             universes.extend(Universe2p2h.GetSystematicsUniverses(chain ))
 
-            # #RPA universe:
+            #RPA universe:
             universes.extend(RPAUniverse.GetSystematicsUniverses(chain ))
 
-            # #Non resonant pion universe
+            #Non resonant pion universe
 
-            # # #LowQ2PionUniverse
+            #LowQ2PionUniverse
             universes.extend(LowQ2PionUniverse.GetSystematicsUniverses(chain ))
 
             # #birk shift universe
             # #universes.extend(BirksShiftUniverse.GetSystematicsUniverses(chain ))
 
-            # MKModelUniverse
+            #MKModelUniverse
             #universes.extend(MKModelUniverse.GetSystematicsUniverses(chain ))
 
-            # #FSIWeighUniverse
+            #FSIWeighUniverse
             #universes.extend(FSIWeightUniverse.GetSystematicsUniverses(chain ))
 
-            # #SuSAValenciaUniverse
+            #SuSAValenciaUniverse
             #universes.extend(SusaValenciaUniverse.GetSystematicsUniverses(chain ))
 
             #hadron reweight shifting universe
             universes.extend(GeantHadronUniverse.GetSystematicsUniverses(chain ))
 
             #leakage universe
-            #universes.extend(LeakageUniverse.GetSystematicsUniverses(chain ))
+            universes.extend(LeakageUniverse.GetSystematicsUniverses(chain ))
 
 
     # Group universes in dict.

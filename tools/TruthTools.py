@@ -528,5 +528,10 @@ def OverlappingEnergy(event):
             print(pdg, energy, coneE, coneE-energy)
         print(" ")
 
+def DifferenceEavail(event):
+    truevisE = event.kin_cal.true_visE
+    recovisE = event.kin_cal.reco_visE
+    difference = truevisE - recovisE
+    return  difference
 
 

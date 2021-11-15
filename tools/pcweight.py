@@ -140,7 +140,7 @@ class MyWeighterBase(object):
         self.cate_map={}
 
     def rangeBasedWeight(self,universe,ran,weight):
-        v =self.fvalue(universe)
+        v =self.fvalue(universe) 
         if v is None:
             return 1
         for i in range(len(ran)):
@@ -151,19 +151,29 @@ class MyWeighterBase(object):
         return weight[-1]
 
     def fileBasedWeight(self,universe,hist):
-        v = self.fvalue(universe)
+        v = self.fvalue(universe) 
         if v is None:
             return 1
         if hist.HasVertErrorBand(universe.ShortName()):
             errorhist = hist.GetVertErrorBand(universe.ShortName()).GetHist(universe.ithInWrapper)
         else:
-            errorhist = hist
+            errorhist = hist 
         return errorhist.GetBinContent(hist.FindBin(v))
 
     def GetWeight(self,universe):
         if universe.nsigma is None:
             return 1
-        if universe.classifier.truth_class in self.cate_map:
+        #if universe.mc_incoming == 12: #suppress nue events 
+        #    return 0.0
+        if universe.classifier.truth_class in self.cate_map: 
+            return self.cate_map[universe.classifier.truth_class](universe)
+        else:
+            return 1
+
+    def GetFHCWeight(self,universe): 
+        if universe.nsigma is None:
+            return 1
+        if universe.classifier.truth_class in self.cate_map: 
             return self.cate_map[universe.classifier.truth_class](universe)
         else:
             return 1
@@ -180,17 +190,60 @@ class EelTuningWeight(MyWeighterBase):
     def __init__(self):
         super(EelTuningWeight,self).__init__( lambda universe:universe.kin_cal.reco_E_lep)
         self.f = ROOT.TFile.Open("{}/background_fit/bkgfit_scale.root".format(os.environ["CCNUEROOT"]))
-        self.hist_dict = {i:self.f.Get(i) for i in ["DIS","Excess","NCCoh","Signal"]}
+        self.hist_dict = {i:self.f.Get(i) for i in ["Pi0","Excess","NCCoh","Signal"]}
+        
+        self.cate_map["NCPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["Pi0"])
+        self.cate_map["CCPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["Pi0"])
+        self.cate_map["NCDiff"] = partial(self.fileBasedWeight,hist=self.hist_dict["Excess"])
+        self.cate_map["NCCohPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["NCCoh"])
+        self.cate_map["CCQElike"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
+        self.cate_map["notCCQElike"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
 
-        self.cate_map["NCDIS"] = partial(self.fileBasedWeight,hist=self.hist_dict["DIS"])
-        self.cate_map["CCDIS"] = partial(self.fileBasedWeight,hist=self.hist_dict["DIS"])
-        self.cate_map["ExcessModel"] = partial(self.fileBasedWeight,hist=self.hist_dict["Excess"])
-        self.cate_map["NCCOH"] = partial(self.fileBasedWeight,hist=self.hist_dict["NCCoh"])
-        self.cate_map["CCNuEQE"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
-        self.cate_map["CCNuEDelta"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
-        self.cate_map["CCNuE2p2h"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
-        self.cate_map["CCNuEDIS"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
-        self.cate_map["CCNuE"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
+class FHCProducedWeight(MyWeighterBase):
+    def __init__(self):
+        super(FHCProducedWeight,self).__init__( lambda universe:universe.kin_cal.reco_E_lep)
+        self.f = ROOT.TFile.Open("{}/background_fit/bkgfit_scale_fhc.root".format(os.environ["CCNUEROOT"]))
+        self.hist_dict = {i:self.f.Get(i) for i in ["Pi0","Excess","NCCoh","Signal"]}
+
+        self.cate_map["NCPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["Pi0"])
+        self.cate_map["CCPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["Pi0"])
+        self.cate_map["NCDiff"] = partial(self.fileBasedWeight,hist=self.hist_dict["Excess"])
+        self.cate_map["NCCohPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["NCCoh"])
+        self.cate_map["CCQElike"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
+        self.cate_map["notCCQElike"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
+
+
+class FHCMCEstimatorWeight(MyWeighterBase):
+    def __init__(self):
+        super(FHCMCEstimatorWeight,self).__init__(lambda universe:universe.kin_cal.reco_visE+universe.kin_cal.reco_E_lep)
+        self.f = ROOT.TFile.Open("{}/background_fit/tEnuRatio_RhcFhcNue.root".format(os.environ["CCNUEROOT"]))
+      
+        self.hist_dict = {i:self.f.Get(i) for i in ["tEnu_Nue"]}
+
+        self.cate_map["Nue"] = partial(self.fileBasedWeight,hist=self.hist_dict["tEnu_Nue"])
+        self.cate_map["Background"] = partial(self.fileBasedWeight,hist=self.hist_dict["tEnu_Nue"])
+        self.cate_map["NueBar"] = partial(self.fileBasedWeight,hist=self.hist_dict["tEnu_Nue"])
+
+class FHCDataEstimatorWeight(DataWeight):
+   def __init__(self):
+        super(FHCDataEstimatorWeight,self).__init__(lambda universe:universe.kin_cal.reco_visE+universe.kin_cal.reco_E_lep)
+        self.f = ROOT.TFile.Open("{}/background_fit/tEnuRatio_RhcFhcNue.root".format(os.environ["CCNUEROOT"]))
+        self.h = self.f.Get("tEnu_Nue")
+        self.h.ClearAllErrorBands()
+        self.weighter = partial(self.fileBasedWeight,hist=self.h)
+
+class PtTuningWeight(MyWeighterBase):
+    def __init__(self):
+        super(PtTuningWeight,self).__init__( lambda universe:universe.kin_cal.reco_Pt_lep)
+        self.f = ROOT.TFile.Open("{}/background_fit/bkgfit_scale_pt.root".format(os.environ["CCNUEROOT"]))
+        self.hist_dict = {i:self.f.Get(i) for i in ["Pi0","Excess","NCCoh","Signal"]}
+
+        self.cate_map["NCPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["Pi0"])
+        self.cate_map["CCPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["Pi0"])
+        self.cate_map["NCDiff"] = partial(self.fileBasedWeight,hist=self.hist_dict["Excess"])
+        self.cate_map["NCCohPi0"] = partial(self.fileBasedWeight,hist=self.hist_dict["NCCoh"])
+        self.cate_map["CCQElike"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
+        self.cate_map["notCCQElike"] = partial(self.fileBasedWeight,hist=self.hist_dict["Signal"])
 
 class EnuElectronMuonWeight(DataWeight):
     def __init__(self):
@@ -200,11 +253,45 @@ class EnuElectronMuonWeight(DataWeight):
         self.h.ClearAllErrorBands()
         self.weighter = partial(self.fileBasedWeight,hist=self.h)
 
-if AnalysisConfig.extra_weighter is None:
+class EelPtTuningWeight():
+    def __init__(self):
+        #self.EelWeight = EelTuningWeight()
+        self.PtWeight = PtTuningWeight()
+
+    def GetWeight(self,universe):
+        #return self.EelWeight.GetWeight(universe)*self.PtWeight.GetWeight(universe)
+        return self.PtWeight.GetWeight(universe)
+
+#class PtTuningWeight():
+#    def __init__(self): 
+#        self.PtWeight = PtTuningWeight()
+##
+#    def GetWeight(self,universe):
+#        return self.PtWeight.GetWeight(universe)
+
+class FHCNueEstimator():
+    def __init__(self):
+        #self.FHCProducedWeight = FHCProducedWeight()
+        self.FHCMCWeight = FHCMCEstimatorWeight()
+
+    def GetWeight(self,universe):
+        #return self.FHCMCWeight.GetWeight(universe)*self.FHCProducedWeight.GetWeight(universe)
+        #return self.FHCProducedWeight.GetFHCWeight(universe)
+        return self.FHCMCWeight.GetFHCWeight(universe)
+
+if AnalysisConfig.extra_weighter is None: 
     MyWeighter = MyWeighterBase()
 elif AnalysisConfig.extra_weighter =="Eel_tune":
     MyWeighter = EelTuningWeight()
 elif AnalysisConfig.extra_weighter =="emu_weight":
     MyWeighter = EnuElectronMuonWeight()
+elif AnalysisConfig.extra_weighter =="EelPt_tune":
+    MyWeighter = EelPtTuningWeight()
+#elif AnalysisConfig.extra_weighter =="Pt_tune":
+#    MyWeighter = PtTuningWeight()
+elif AnalysisConfig.extra_weighter == "FHCEstimator_tune":
+    MyWeighter = FHCNueEstimator()
+elif AnalysisConfig.extra_weighter == "FHCDataEstimator_tune":
+    MyWeighter = FHCDataEstimatorWeight()
 else:
     raise ValueError("Unknown extra weighter")
